@@ -13,14 +13,17 @@
         const display = document.querySelector("p");
 
         worker.postMessage('Ima worker!!');
+        worker.onmessage = event => {
+          display.innerHTML = `MEssage FROM WORKER received: ${event.data}`;
+        }
 
         iframe.addEventListener("load", () => {
           iframe.contentWindow.postMessage("Hey!", "*", [channel.port2]);
         });
 
-        channel.port1.onmessage = event => {
-          display.innerHTML = `Message back from the iframe: ${event.data}`;
-        };
+        // channel.port1.onmessage = event => {
+        //   display.innerHTML = `Message back from the iframe: ${event.data}`;
+        // };
       });
     </script>
     <title>Document</title>
