@@ -7,9 +7,12 @@
     <link rel="stylesheet" href="style.css" />
     <script>
       window.addEventListener("DOMContentLoaded", () => {
+        const worker = new Worker('worker.js');
         const channel = new MessageChannel();
         const iframe = document.querySelector("iframe");
         const display = document.querySelector("p");
+
+        worker.postMessage('Ima worker!!');
 
         iframe.addEventListener("load", () => {
           iframe.contentWindow.postMessage("Hey!", "*", [channel.port2]);
