@@ -9,27 +9,19 @@
       window.addEventListener("DOMContentLoaded", () => {
         const worker = new Worker('worker.js');
         const channel = new MessageChannel();
-        const iframe = document.querySelector("iframe");
-        const display = document.querySelector("p");
+        const messgeChannel = new MessageChannel();
 
-        worker.postMessage('Ima worker!!');
-        worker.onmessage = event => {
-          display.innerHTML = `MEssage FROM WORKER received: ${event.data}`;
+        messgeChannel.port1.onmessage = event => {
+          document.querySelector('p').innerHTML = `Message back from the Web Worker: ${event.data} `;
         }
-
-        iframe.addEventListener("load", () => {
-          iframe.contentWindow.postMessage("Hey!", "*", [channel.port2]);
-        });
-
-        // channel.port1.onmessage = event => {
-        //   display.innerHTML = `Message back from the iframe: ${event.data}`;
-        // };
+      worker.postMessage('Heeeyyyaa!', [messgeChannel.port2]);
+        
       });
     </script>
     <title>Document</title>
   </head>
   <body>
-    <iframe src="iframe.html" width="500" height="100" frameborder="2"></iframe>
+    <!-- <iframe src="iframe.html" width="500" height="100" frameborder="2"></iframe> -->
     <p></p>
   </body>
 </html>
