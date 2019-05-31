@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>ifame3</title>
+    
+  </head>
+  <body>
+    <p></p>
+
+    <script>
+            display = document.querySelector("p");
+      
+            window.addEventListener("DOMContentLoaded", () => {
+              const channel = new BroadcastChannel("common");
+      
+              setInterval(() => {
+                channel.postMessage('Hi from iframe3!<br>');
+              }, 1000);
+      
+              channel.onmessage = event => {
+                display.innerHTML = `${event.data}` + display.innerHTML;
+             
+              };
+            });
+          </script>
+  </body>
+</html>
